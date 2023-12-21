@@ -26,19 +26,18 @@ function ViewAdmins() {
 			setResults(users);
 		} else {
 			const filtercc = users.filter((dato) => dato.identification === cc);
+
+			setResults(filtercc);
+		}
+
+		if (!nuser) {
+			setResults(users);
+		} else {
 			const filterUserName = users.filter(
 				(dato) => dato.user_name && dato.user_name.includes(nuser)
 			);
-			setResults(filtercc, filterUserName);
+			setResults(filterUserName);
 		}
-
-		// if (!nuser) {
-		// 	setResults(users);
-		// } else {
-		// 	const filterUserName = users.filter(
-		// 		(dato) => dato.user_name && dato.user_name.includes(nuser)
-		// 	);
-		// }
 	}
 
 	function limpiar() {
