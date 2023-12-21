@@ -28,8 +28,6 @@ function App() {
       });
 
       if (response.ok) {
-        const token = response.headers.get('Authorization');
-        console.log(token);
         nav("/nando");
       } else {
         alert("Algo ha salido mal");

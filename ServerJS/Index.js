@@ -86,7 +86,7 @@ app.get("/users",(req, res, next) => {
 	
     try {
         const usuarios =
-			"SELECT us.id, us.name, us.last_name, us.user_name, us.identification, us.movil, us.status, GROUP_CONCAT(rl.name) AS roles FROM user us LEFT JOIN user_role ur ON us.id = ur.user_id LEFT JOIN role rl ON rl.id = ur.role_id GROUP BY us.id HAVING COUNT(rl.id) > 1 ORDER BY us.id LIMIT 10";
+			"SELECT us.id, us.name, us.last_name, us.user_name, us.identification, us.movil, us.status, GROUP_CONCAT(rl.name) AS roles FROM user us LEFT JOIN user_role ur ON us.id = ur.user_id LEFT JOIN role rl ON rl.id = ur.role_id GROUP BY us.id HAVING COUNT(rl.id) > 1 ORDER BY us.id";
 
         // Execute the MySQL query
         conexion.query(usuarios, (error, results) => {
