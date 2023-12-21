@@ -38,7 +38,7 @@ app.post("/login", (req, res) => {
 					res.setHeader('Authorization', token);
 					Gtoken=token;
 					res.status(200).json({message: "Login exitoso"});
-					console.log("LOGGGGGGG", res.getHeaders());
+
 
 				} else {
 					res.status(401).json({ error: "Credenciales incorrectas" });
@@ -54,25 +54,17 @@ app.post("/login", (req, res) => {
 let Gtoken;
 
 let verifyToken = (req, res, next) => {
-	console.log(req.headers);
-	req.setHeader('Authorization', token);
-	console.log("INSIDEE");
-	let token = req.headers['connection'];
-	console.log(token);
-	console.log("INSIDEE2");
+
+	let token = req.headers['authorization'];
+
 	if (!token) {
-		console.log("INSIDEEERROR2");
 		return res.status(401).json({ error: "Token no proporcionado" });
 	}
-	console.log("INSIDEE3");
 	jwt.verify(token, "secreto_del_token", (err, decoded) => {
 		if (err) {
-			console.log("INSIDEEERROR");
-			return res.status(403).json({ error: "Token inválido" });
-			
+			return res.status(403).json({ error: "Token inválido" });		
 		}
 		else{
-			console.log("INSIDElse");
 		 // Almacenar información del usuario en el objeto de solicitud
 		req.headers.token = token
 		req.user = decoded;
@@ -83,9 +75,15 @@ let verifyToken = (req, res, next) => {
 	});
 };
 
-app.get("/users", verifyToken, async (req, res) =>
+app.get("/users",(req, res, next) => {
+
+  req.headers['authorization'] = Gtoken;
+
+
+  verifyToken(req, res, next);
+}, async (req, res) =>
 {
-   
+	
     try {
         const usuarios =
 			"SELECT us.id, us.name, us.last_name, us.user_name, us.identification, us.movil, us.status, GROUP_CONCAT(rl.name) AS roles FROM user us LEFT JOIN user_role ur ON us.id = ur.user_id LEFT JOIN role rl ON rl.id = ur.role_id GROUP BY us.id HAVING COUNT(rl.id) > 1 ORDER BY us.id LIMIT 10";
