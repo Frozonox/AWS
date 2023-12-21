@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+// import { BiSearch, BiRefresh } from "react-bootstrap-icons";
 
 function ViewAdmins() {
 	const [users, setUsers] = useState([]);
@@ -77,68 +79,89 @@ function ViewAdmins() {
 
 	return (
 		<>
-			<h1 className="text-dark center">Lista de Administradores</h1>
-
-			<input
-				value={cc}
-				onChange={(e) => {
-					setCc(e.target.value);
-				}}
-				type="number"
-				placeholder="Por Identificacion"
-				className="form-control"
-			/>
-			<input
-				value={nuser}
-				onChange={(e) => {
-					setNuser(e.target.value);
-				}}
-				type="text"
-				placeholder="Por Nombre de Usuario"
-				className="form-control"
-			/>
-			<input
-				value={names}
-				onChange={(e) => {
-					setNames(e.target.value);
-				}}
-				type="text"
-				placeholder="Por Nombre"
-				className="form-control"
-			/>
-			<input
-				value={last_names}
-				onChange={(e) => {
-					setLast_names(e.target.value);
-				}}
-				type="text"
-				placeholder="Por Apellidos	"
-				className="form-control"
-			/>
-			<input
-				value={numero}
-				onChange={(e) => {
-					setNumero(e.target.value);
-				}}
-				type="text"
-				placeholder="Por Numero Telefonico	"
-				className="form-control"
-			/>
-			<select
-				value={estado}
-				onChange={(e) => {
-					setEstado(e.target.value);
-				}}
-				className="form-control"
-			>
-				<option value="">Todos</option>
-				<option value="activo">Activo</option>
-				<option value="inactivo">Inactivo</option>
-			</select>
-			<button onClick={buscar}>Buscar</button>
-			<button onClick={limpiar}>Limpiar</button>
-			<table className="table table-dark table-striped table-bordered mt-5 text-center">
-				<thead>
+			<h1 className="text-dark center text-center">Lista de Administradores</h1>
+			<div className="row">
+				<div className="col-md-2">
+					<input
+						value={cc}
+						onChange={(e) => {
+							setCc(e.target.value);
+						}}
+						type="number"
+						placeholder="Por Identificacion"
+						className="form-control"
+					/>
+				</div>
+				<div className="col-md-2">
+					<input
+						value={nuser}
+						onChange={(e) => {
+							setNuser(e.target.value);
+						}}
+						type="text"
+						placeholder="Por Nombre de Usuario"
+						className="form-control"
+					/>
+				</div>
+				<div className="col-md-2">
+					<input
+						value={names}
+						onChange={(e) => {
+							setNames(e.target.value);
+						}}
+						type="text"
+						placeholder="Por Nombre"
+						className="form-control"
+					/>
+				</div>
+				<div className="col-md-2">
+					<input
+						value={last_names}
+						onChange={(e) => {
+							setLast_names(e.target.value);
+						}}
+						type="text"
+						placeholder="Por Apellidos"
+						className="form-control"
+					/>
+				</div>
+				<div className="col-md-2">
+					<input
+						value={numero}
+						onChange={(e) => {
+							setNumero(e.target.value);
+						}}
+						type="text"
+						placeholder="Por Numero Telefonico"
+						className="form-control"
+					/>
+				</div>
+				<div className="col-md-2">
+					<select
+						value={estado}
+						onChange={(e) => {
+							setEstado(e.target.value);
+						}}
+						className="form-control"
+					>
+						<option value="">Todos</option>
+						<option value="activo">Activo</option>
+						<option value="inactivo">Inactivo</option>
+					</select>
+				</div>
+				<div className="row mt-2">
+					<div className="col-md-6">
+						<button className="btn btn-primary mr-2" onClick={buscar}>
+							Buscar
+						</button>
+						<button className="btn btn-secondary" onClick={limpiar}>
+							Limpiar
+						</button>
+					</div>
+				</div>
+			</div>
+			<table className="table table-striped table-bordered table-hover mt-5 text-center">
+				<thead className="thead-dark">
 					<tr>
 						<th>Nombres</th>
 						<th>Apellidos</th>
@@ -151,8 +174,11 @@ function ViewAdmins() {
 				</thead>
 				<tbody>
 					{Array.isArray(results) &&
-						results.map((user) => (
-							<tr key={user.id}>
+						results.map((user, index) => (
+							<tr
+								key={user.id}
+								className={index % 2 === 0 ? "table-light" : ""} // Aplica clase para filas pares
+							>
 								<td>{user.name}</td>
 								<td>{user.last_name}</td>
 								<td>{user.identification}</td>
