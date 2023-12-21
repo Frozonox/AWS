@@ -66,7 +66,7 @@ let verifyToken = (req, res, next) => {
 		}
 		else{
 		 // Almacenar información del usuario en el objeto de solicitud
-		req.headers.token = token
+		token = Gtoken
 		req.user = decoded;
 		console.log(token);
 		next();
