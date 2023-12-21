@@ -22,22 +22,21 @@ function ViewAdmins() {
 	}, []);
 
 	function buscar() {
-		if (!cc && !nuser) {
-			setResults(users);
-		} else {
-			const filtercc = users.filter((dato) => dato.identification === cc);
+		let filteredUsers = users;
 
-			setResults(filtercc);
+		if (cc) {
+			filteredUsers = filteredUsers.filter(
+				(dato) => dato.identification === cc
+			);
 		}
 
-		if (!nuser) {
-			setResults(users);
-		} else {
-			const filterUserName = users.filter(
+		if (nuser) {
+			filteredUsers = filteredUsers.filter(
 				(dato) => dato.user_name && dato.user_name.includes(nuser)
 			);
-			setResults(filterUserName);
 		}
+
+		setResults(filteredUsers);
 	}
 
 	function limpiar() {
